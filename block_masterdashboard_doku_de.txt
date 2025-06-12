@@ -49,6 +49,7 @@ Installation:
 Sprache:
 --------
 - Englisch (enthalten)
+- Deutsch
 - Weitere Übersetzungen möglich (lang/)
 
 Screenshot:
