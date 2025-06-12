@@ -1,0 +1,56 @@
+
+===========================
+Master Dashboard (Block)
+===========================
+
+Kurzbeschreibung:
+-----------------
+Master Dashboard ist ein visuell ansprechender, responsiver Block für das Moodle-Dashboard.
+Er zeigt den Lernfortschritt eines Teilnehmers über alle belegten Kurse hinweg, farblich sortiert nach Status:
+- Rot = Überfällig
+- Gelb = In Bearbeitung
+- Grün = Abgeschlossen
+
+Funktionen:
+-----------
+- Übersicht über alle Kurse mit Kursabschluss-Kriterien
+- Sortierung in: Überfällige, In Bearbeitung, Abgeschlossene Kurse
+- Responsives Layout (1-3 Karten pro Zeile)
+- Anzeige von Kursbild, Kurstitel und Fälligkeitsdatum
+- Farbige Statusränder für schnelle Orientierung
+- Mobilfreundlich und kompatibel mit allen gängigen Themes
+- Kompatibel mit Moodle 4.0 – 5.x
+
+Zielgruppe:
+-----------
+- Lernende
+- Trainer:innen (z. B. im Lesemodus)
+- Organisationen mit Frist-basierten Kursen
+
+Technische Daten:
+-----------------
+- Plugin-Typ: Block Plugin
+- Verzeichnisname: block_masterdashboard
+- Keine externen Abhängigkeiten
+- Sprachdateien enthalten (en)
+- Unterstützt Kursbilder aus den overviewfiles
+
+Berechtigungen:
+---------------
+- block/masterdashboard:addinstance
+- block/masterdashboard:myaddinstance
+
+Installation:
+-------------
+1. Plugin in den Ordner /blocks/masterdashboard/ hochladen
+2. Im Moodle-Backend als Admin installieren
+3. Den Block auf dem Dashboard hinzufügen
+
+Sprache:
+--------
+- Englisch (enthalten)
+- Weitere Übersetzungen möglich (lang/)
+
+Screenshot:
+-----------
+Ein Screenshot mit dem 3-Spalten-Layout und Statusfarben wird empfohlen.
