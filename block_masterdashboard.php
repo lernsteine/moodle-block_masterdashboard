@@ -60,13 +60,13 @@ class block_masterdashboard extends block_base {
             $status = '';
             if ($iscomplete) {
                 $status = 'completed';
-                $dateinfo = 'abgeschlossen: ' . date('d.m.Y');
+                $dateinfo = get_string('completedon', 'block_masterdashboard') . ': ' . date('d.m.Y');
             } elseif (!empty($course->enddate) && time() > $course->enddate) {
                 $status = 'overdue';
-                $dateinfo = 'fällig am: ' . date('d.m.Y', $course->enddate);
+                $dateinfo = get_string('duedate', 'block_masterdashboard') . ': ' . date('d.m.Y', $course->enddate);
             } else {
                 $status = 'inprogress';
-                $dateinfo = 'endet: ' . (!empty($course->enddate) ? date('d.m.Y', $course->enddate) : '-');
+                $dateinfo = get_string('enddate', 'block_masterdashboard') . ': ' . (!empty($course->enddate) ? date('d.m.Y', $course->enddate) : '-');
             }
 
             $info = html_writer::div($courselink, 'coursename') .
@@ -89,13 +89,19 @@ class block_masterdashboard extends block_base {
 
         $output = '<div class="block_masterdashboard">';
         if (!empty($overdue)) {
-            $output .= '<div class="section"><div class="sectiontitle">Überfällige Kurse</div><div class="course-grid">' . $overdue . '</div></div>';
+$output .= '<div class="section">';
+$output .= html_writer::div(get_string("overduecourses", "block_masterdashboard"), "sectiontitle");
+$output .= '<div class="course-grid">' . $overdue . '</div></div>';
         }
         if (!empty($inprogress)) {
-            $output .= '<div class="section"><div class="sectiontitle">Kurse in Bearbeitung</div><div class="course-grid">' . $inprogress . '</div></div>';
+$output .= '<div class="section">';
+$output .= html_writer::div(get_string("inprogresscourses", "block_masterdashboard"), "sectiontitle");
+$output .= '<div class="course-grid">' . $inprogress . '</div></div>';
         }
         if (!empty($completed)) {
-            $output .= '<div class="section"><div class="sectiontitle">Abgeschlossene Kurse</div><div class="course-grid">' . $completed . '</div></div>';
+$output .= '<div class="section">';
+$output .= html_writer::div(get_string("completedcourses", "block_masterdashboard"), "sectiontitle");
+$output .= '<div class="course-grid">' . $completed . '</div></div>';
         }
         $output .= '</div>';
 
