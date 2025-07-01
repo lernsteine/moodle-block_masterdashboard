@@ -24,9 +24,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Class block_masterdashboard
+ */
 class block_masterdashboard extends block_base {
     public function init() {
-        $this->title = ''; // No visible block title
+        $this->title = '';
     }
 
     public function get_content() {
