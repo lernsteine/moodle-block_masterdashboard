@@ -1,13 +1,36 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * [Short description of the file]
+ *
+ * @package    block_masterdashboard
+ * @copyright  2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 class block_masterdashboard extends block_base {
     public function init() {
-        $this->title = ''; // Kein Blocktitel sichtbar
+        $this->title = ''; // No visible block title
     }
 
     public function get_content() {
-        global $USER, $PAGE, $CFG, $OUTPUT;
+        global $USER, $CFG, $OUTPUT;
 
         if ($this->content !== null) {
             return $this->content;
@@ -16,20 +39,23 @@ class block_masterdashboard extends block_base {
         require_once($CFG->libdir . '/completionlib.php');
         require_once($CFG->dirroot . '/course/lib.php');
 
-        $PAGE->requires->css(new moodle_url('/blocks/masterdashboard/styles.css'));
+        $this->page->requires->css(new moodle_url('/blocks/masterdashboard/styles.css'));
 
         $courses = enrol_get_users_courses($USER->id, true, '*');
-        // Sort courses by enddate descending
+
         uasort($courses, function($a, $b) {
             return ($b->enddate ?? 0) <=> ($a->enddate ?? 0);
         });
+
         $fs = get_file_storage();
         $overdue = '';
         $inprogress = '';
         $completed = '';
 
         foreach ($courses as $course) {
-            if (!$course->enablecompletion) continue;
+            if (!$course->enablecompletion) {
+                continue;
+            }
 
             $completioninfo = new completion_info($course);
             $iscomplete = $completioninfo->is_course_complete($USER->id);
@@ -60,13 +86,13 @@ class block_masterdashboard extends block_base {
             $status = '';
             if ($iscomplete) {
                 $status = 'completed';
-                $dateinfo = get_string('completedon', 'block_masterdashboard') . ': ' . date('d.m.Y');
-            } elseif (!empty($course->enddate) && time() > $course->enddate) {
+                $dateinfo = get_string('completedon', 'block_masterdashboard') . ': ' . userdate(time(), '%A, %d.%m.%Y');
+            } else if (!empty($course->enddate) && time() > $course->enddate) {
                 $status = 'overdue';
-                $dateinfo = get_string('duedate', 'block_masterdashboard') . ': ' . date('d.m.Y', $course->enddate);
+                $dateinfo = get_string('duedate', 'block_masterdashboard') . ': ' . userdate($course->enddate, '%A, %d.%m.%Y');
             } else {
                 $status = 'inprogress';
-                $dateinfo = get_string('enddate', 'block_masterdashboard') . ': ' . (!empty($course->enddate) ? date('d.m.Y', $course->enddate) : '-');
+                $dateinfo = get_string('enddate', 'block_masterdashboard') . ': ' . (!empty($course->enddate) ? userdate($course->enddate, '%A, %d.%m.%Y') : '-');
             }
 
             $info = html_writer::div($courselink, 'coursename') .
@@ -74,36 +100,45 @@ class block_masterdashboard extends block_base {
             $infowrap = html_writer::div($info, 'course-info');
 
             $card = html_writer::div(
-                html_writer::div($imgtag, 'course-thumb-wrapper') . $infowrap,
+                html_writer::div($imgtag, 'course-thumb') . $infowrap,
                 'course-card ' . $status
             );
 
-            if ($status == 'completed') {
+            if ($status === 'completed') {
                 $completed .= $card;
-            } elseif ($status == 'inprogress') {
+            } else if ($status === 'inprogress') {
                 $inprogress .= $card;
             } else {
                 $overdue .= $card;
             }
         }
 
-        $output = '<div class="block_masterdashboard">';
+        $output = html_writer::div(
+            html_writer::div(get_string('dashboardintro', 'block_masterdashboard'), 'dashboardintro'),
+            'block_masterdashboard'
+        );
+
         if (!empty($overdue)) {
-$output .= '<div class="section">';
-$output .= html_writer::div(get_string("overduecourses", "block_masterdashboard"), "sectiontitle");
-$output .= '<div class="course-grid">' . $overdue . '</div></div>';
+            $output .= html_writer::div(
+                html_writer::tag('h3', get_string("overduecourses", "block_masterdashboard")) .
+                html_writer::div($overdue, 'course-grid'),
+                'section'
+            );
         }
         if (!empty($inprogress)) {
-$output .= '<div class="section">';
-$output .= html_writer::div(get_string("inprogresscourses", "block_masterdashboard"), "sectiontitle");
-$output .= '<div class="course-grid">' . $inprogress . '</div></div>';
+            $output .= html_writer::div(
+                html_writer::tag('h3', get_string("inprogresscourses", "block_masterdashboard")) .
+                html_writer::div($inprogress, 'course-grid'),
+                'section'
+            );
         }
         if (!empty($completed)) {
-$output .= '<div class="section">';
-$output .= html_writer::div(get_string("completedcourses", "block_masterdashboard"), "sectiontitle");
-$output .= '<div class="course-grid">' . $completed . '</div></div>';
+            $output .= html_writer::div(
+                html_writer::tag('h3', get_string("completedcourses", "block_masterdashboard")) .
+                html_writer::div($completed, 'course-grid'),
+                'section'
+            );
         }
-        $output .= '</div>';
 
         $this->content = new stdClass();
         $this->content->text = $output;
