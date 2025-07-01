@@ -17,9 +17,9 @@
 /**
  * [Short description of the file]
  *
- * @package    block_masterdashboard
- * @copyright  2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   block_masterdashboard
+ * @copyright 2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -27,18 +27,20 @@ namespace block_masterdashboard;
 
 defined('MOODLE_INTERNAL') || die();
 
-class lib {
+class lib
+{
 
     /**
      * Returns categorized course data for the current user.
      *
-     * @param \renderer_base $output
+     * @param  \renderer_base $output
      * @return array
      */
-    public static function get_user_courses_data(\renderer_base $output): array {
+    public static function get_user_courses_data(\renderer_base $output): array
+    {
         global $USER, $CFG;
 
-        require_once($CFG->libdir . '/completionlib.php');
+        include_once $CFG->libdir . '/completionlib.php';
 
         $courses = enrol_get_users_courses($USER->id, true, '*');
 

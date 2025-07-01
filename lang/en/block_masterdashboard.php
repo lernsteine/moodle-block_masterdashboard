@@ -17,9 +17,9 @@
 /**
  * [Short description of the file]
  *
- * @package    block_masterdashboard
- * @copyright  2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   block_masterdashboard
+ * @copyright 2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 

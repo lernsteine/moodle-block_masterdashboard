@@ -17,9 +17,9 @@
 /**
  * [Short description of the file]
  *
- * @package    block_masterdashboard
- * @copyright  2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   block_masterdashboard
+ * @copyright 2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -27,28 +27,33 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Class block_masterdashboard
  */
-class block_masterdashboard extends block_base {
-    public function init() {
+class block_masterdashboard extends block_base
+{
+    public function init()
+    {
         $this->title = '';
     }
 
-    public function get_content() {
+    public function get_content()
+    {
         global $USER, $CFG, $OUTPUT;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
-        require_once($CFG->libdir . '/completionlib.php');
-        require_once($CFG->dirroot . '/course/lib.php');
+        include_once $CFG->libdir . '/completionlib.php';
+        include_once $CFG->dirroot . '/course/lib.php';
 
         $this->page->requires->css(new moodle_url('/blocks/masterdashboard/styles.css'));
 
         $courses = enrol_get_users_courses($USER->id, true, '*');
 
-        uasort($courses, function($a, $b) {
-            return ($b->enddate ?? 0) <=> ($a->enddate ?? 0);
-        });
+        uasort(
+            $courses, function ($a, $b) {
+                return ($b->enddate ?? 0) <=> ($a->enddate ?? 0);
+            }
+        );
 
         $fs = get_file_storage();
         $overdue = '';
