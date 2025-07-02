@@ -1,48 +1,44 @@
 {{!
     @template block_masterdashboard/block_masterdashboard
+
     This template renders categorized course cards (overdue, inprogress, completed).
 
-    Context variables:
-    - overdue: array of courses with fields name, url, duedate, image
-    - inprogress: array of courses with fields name, url, enddate, image
-    - completed: array of courses with fields name, url, completiondate, image
-    - introtext: optional welcome text
-
-    Example context:
+    Example context (json):
     {
-        "introtext": "Willkommen auf deinem Dashboard.",
+        "introtext": "Willkommen!",
         "overdue": {
             "courses": [
                 {
                     "name": "Mathematik",
-                    "url": "https://moodle.local/course/view.php?id=1",
-                    "duedate": "Montag, 01. Juli 2024",
-                    "image": "https://moodle.local/pluginfile.php/123/course/overviewfiles/image.jpg"
+                    "url": "https://example.com/course/1",
+                    "duedate": "Montag, 24.06.2025",
+                    "image": "https://example.com/image1.jpg"
                 }
             ]
         },
         "inprogress": {
             "courses": [
                 {
-                    "name": "Biologie",
-                    "url": "https://moodle.local/course/view.php?id=2",
-                    "enddate": "Freitag, 12. Juli 2024",
-                    "image": "https://moodle.local/pluginfile.php/456/course/overviewfiles/image2.jpg"
+                    "name": "Deutsch",
+                    "url": "https://example.com/course/2",
+                    "enddate": "Dienstag, 25.06.2025",
+                    "image": "https://example.com/image2.jpg"
                 }
             ]
         },
         "completed": {
             "courses": [
                 {
-                    "name": "Deutsch",
-                    "url": "https://moodle.local/course/view.php?id=3",
-                    "completiondate": "Dienstag, 11. Juni 2024",
-                    "image": "https://moodle.local/pluginfile.php/789/course/overviewfiles/image3.jpg"
+                    "name": "Englisch",
+                    "url": "https://example.com/course/3",
+                    "completiondate": "Sonntag, 23.06.2025",
+                    "image": "https://example.com/image3.jpg"
                 }
             ]
         }
     }
 }}
+
 <!-- File: templates/block_masterdashboard.mustache -->
 <div class="block_masterdashboard">
 
