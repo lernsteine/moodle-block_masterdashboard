@@ -91,7 +91,7 @@ class block_masterdashboard extends block_base {
             $imgtag = html_writer::empty_tag('img', [
                 'src' => $imageurl,
                 'class' => 'course-thumb',
-                'alt' => ''
+                'alt' => '',
             ]);
             $courselink = html_writer::link(
                 new moodle_url('/course/view.php', ['id' => $course->id]),
