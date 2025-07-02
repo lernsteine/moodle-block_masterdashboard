@@ -15,32 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * [Short description of the file]
+ * Provides course categorization for the masterdashboard block.
  *
  * @package   block_masterdashboard
  * @copyright 2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 namespace block_masterdashboard;
 
-defined('MOODLE_INTERNAL') || die();
-
-class lib
-{
+/**
+ * Library class for block_masterdashboard.
+ */
+class lib {
 
     /**
      * Returns categorized course data for the current user.
      *
-     * @param  \renderer_base $output
-     * @return array
+     * @param \renderer_base $output Renderer object.
+     * @return array Categorized course data.
      */
-    public static function get_user_courses_data(\renderer_base $output): array
-    {
+    public static function get_user_courses_data(\renderer_base $output): array {
         global $USER, $CFG;
 
-        include_once $CFG->libdir . '/completionlib.php';
+        include_once($CFG->libdir . '/completionlib.php');
 
         $courses = enrol_get_users_courses($USER->id, true, '*');
 
@@ -69,13 +67,16 @@ class lib
                 }
             }
 
-            $enddate = $course->enddate ? userdate($course->enddate, $dateformat) : get_string('nocourseenddate', 'block_masterdashboard');
+            $enddate = $course->enddate ? userdate($course->enddate, $dateformat)
+                : get_string('nocourseenddate', 'block_masterdashboard');
+
             $completiondate = $completed ? userdate(time(), $dateformat) : '';
 
-            // Kursbild – direkt über das Moodle-Dateisystem
+            // Get course image from Moodle's file storage system.
             $image = '';
             $fs = get_file_storage();
             $files = $fs->get_area_files($context->id, 'course', 'overviewfiles', false);
+
             foreach ($files as $file) {
                 if ($file->is_valid_image()) {
                     $image = \moodle_url::make_pluginfile_url(

@@ -15,45 +15,46 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * [Short description of the file]
+ * Masterdashboard block definition.
  *
  * @package   block_masterdashboard
  * @copyright 2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
- * Class block_masterdashboard
+ * Class block_masterdashboard - provides the main dashboard block.
  */
-class block_masterdashboard extends block_base
-{
-    public function init()
-    {
+class block_masterdashboard extends block_base {
+    /**
+     * Initializes the block with a title.
+     */
+    public function init() {
         $this->title = '';
     }
 
-    public function get_content()
-    {
+    /**
+     * Generates the block content.
+     *
+     * @return stdClass
+     */
+    public function get_content() {
         global $USER, $CFG, $OUTPUT;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
-        include_once $CFG->libdir . '/completionlib.php';
-        include_once $CFG->dirroot . '/course/lib.php';
+        include_once($CFG->libdir . '/completionlib.php');
+        include_once($CFG->dirroot . '/course/lib.php');
 
         $this->page->requires->css(new moodle_url('/blocks/masterdashboard/styles.css'));
 
         $courses = enrol_get_users_courses($USER->id, true, '*');
 
-        uasort(
-            $courses, function ($a, $b) {
-                return ($b->enddate ?? 0) <=> ($a->enddate ?? 0);
-            }
-        );
+        uasort($courses, function ($a, $b) {
+            return ($b->enddate ?? 0) <=> ($a->enddate ?? 0);
+        });
 
         $fs = get_file_storage();
         $overdue = '';
@@ -75,15 +76,23 @@ class block_masterdashboard extends block_base
                 foreach ($files as $file) {
                     if (in_array($file->get_mimetype(), ['image/jpeg', 'image/png', 'image/gif'])) {
                         $imageurl = moodle_url::make_pluginfile_url(
-                            $file->get_contextid(), $file->get_component(), $file->get_filearea(),
-                            null, $file->get_filepath(), $file->get_filename()
+                            $file->get_contextid(),
+                            $file->get_component(),
+                            $file->get_filearea(),
+                            null,
+                            $file->get_filepath(),
+                            $file->get_filename()
                         );
                         break;
                     }
                 }
             }
 
-            $imgtag = html_writer::empty_tag('img', ['src' => $imageurl, 'class' => 'course-thumb', 'alt' => '']);
+            $imgtag = html_writer::empty_tag('img', [
+                'src' => $imageurl,
+                'class' => 'course-thumb',
+                'alt' => ''
+            ]);
             $courselink = html_writer::link(
                 new moodle_url('/course/view.php', ['id' => $course->id]),
                 format_string($course->fullname),
@@ -94,13 +103,16 @@ class block_masterdashboard extends block_base
             $status = '';
             if ($iscomplete) {
                 $status = 'completed';
-                $dateinfo = get_string('completedon', 'block_masterdashboard') . ': ' . userdate(time(), '%A, %d.%m.%Y');
+                $dateinfo = get_string('completedon', 'block_masterdashboard') . ': ' .
+                    userdate(time(), '%A, %d.%m.%Y');
             } else if (!empty($course->enddate) && time() > $course->enddate) {
                 $status = 'overdue';
-                $dateinfo = get_string('duedate', 'block_masterdashboard') . ': ' . userdate($course->enddate, '%A, %d.%m.%Y');
+                $dateinfo = get_string('duedate', 'block_masterdashboard') . ': ' .
+                    userdate($course->enddate, '%A, %d.%m.%Y');
             } else {
                 $status = 'inprogress';
-                $dateinfo = get_string('enddate', 'block_masterdashboard') . ': ' . (!empty($course->enddate) ? userdate($course->enddate, '%A, %d.%m.%Y') : '-');
+                $dateinfo = get_string('enddate', 'block_masterdashboard') . ': ' .
+                    (!empty($course->enddate) ? userdate($course->enddate, '%A, %d.%m.%Y') : '-');
             }
 
             $info = html_writer::div($courselink, 'coursename') .
@@ -128,21 +140,21 @@ class block_masterdashboard extends block_base
 
         if (!empty($overdue)) {
             $output .= html_writer::div(
-                html_writer::tag('h3', get_string("overduecourses", "block_masterdashboard")) .
+                html_writer::tag('h3', get_string('overduecourses', 'block_masterdashboard')) .
                 html_writer::div($overdue, 'course-grid'),
                 'section'
             );
         }
         if (!empty($inprogress)) {
             $output .= html_writer::div(
-                html_writer::tag('h3', get_string("inprogresscourses", "block_masterdashboard")) .
+                html_writer::tag('h3', get_string('inprogresscourses', 'block_masterdashboard')) .
                 html_writer::div($inprogress, 'course-grid'),
                 'section'
             );
         }
         if (!empty($completed)) {
             $output .= html_writer::div(
-                html_writer::tag('h3', get_string("completedcourses", "block_masterdashboard")) .
+                html_writer::tag('h3', get_string('completedcourses', 'block_masterdashboard')) .
                 html_writer::div($completed, 'course-grid'),
                 'section'
             );
