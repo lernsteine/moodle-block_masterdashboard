@@ -15,20 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * [Short description of the file]
+ * Deutsche Sprachstrings für das Plugin block_masterdashboard.
  *
  * @package   block_masterdashboard
  * @copyright 2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-// German language strings for block_masterdashboard.
+// Pluginname.
 $string['pluginname'] = 'Master Dashboard';
-$string['dashboardintro'] = 'Willkommen auf Ihrer Übersichtsseite';
+
+// UI-Texte.
+$string['dashboardintro'] = 'Willkommen in deinem persönlichen Kurs-Dashboard.';
 $string['completedon'] = 'Abgeschlossen am';
 $string['duedate'] = 'Fällig am';
-$string['enddate'] = 'Endet am';
+$string['enddate'] = 'Kurs endet am';
+$string['nocourseenddate'] = 'Kein Enddatum gesetzt';
+
 $string['overduecourses'] = 'Überfällige Kurse';
 $string['inprogresscourses'] = 'Kurse in Bearbeitung';
 $string['completedcourses'] = 'Abgeschlossene Kurse';
+
+// Berechtigungen.
+$string['masterdashboard:addinstance'] = 'Neuen Master-Dashboard-Block hinzufügen';
+$string['masterdashboard:myaddinstance'] = 'Neuen Master-Dashboard-Block auf dem Dashboard hinzufügen';
+
+// Privacy.
+$string['privacy:metadata'] = 'Das Block-Plugin Master Dashboard speichert keine personenbezogenen Daten.';

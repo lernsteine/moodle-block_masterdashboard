@@ -12,11 +12,11 @@
 }
 
 /* Sektionen */
-.section {
+.block_masterdashboard .section {
     margin: 2rem;
 }
 
-.sectiontitle {
+.block_masterdashboard .sectiontitle {
     font-weight: 600;
     color: #595959;
     padding: 0.5rem;
