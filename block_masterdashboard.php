@@ -23,13 +23,22 @@
  */
 
 /**
- * Class block_masterdashboard
+ * Class block_masterdashboard - provides the main dashboard block.
  */
 class block_masterdashboard extends block_base {
+
+    /**
+     * Initializes the block with a title.
+     */
     public function init() {
         $this->title = '';
     }
 
+    /**
+     * Generates the block content.
+     *
+     * @return stdClass
+     */
     public function get_content() {
         global $USER, $CFG, $OUTPUT;
 
