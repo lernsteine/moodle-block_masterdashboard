@@ -15,16 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * [Short description of the file]
+ * Version information for the block_teamdashboard plugin.
  *
- * @package   block_masterdashboard
- * @copyright 2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_teamdashboard
+ * @copyright  2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
-$plugin->component = 'block_masterdashboard';
-$plugin->version = 2025070400;
-$plugin->requires = 2023042400;
+
+$plugin->component = 'block_teamdashboard';
+$plugin->version = 2025100701;
+$plugin->requires = 2022041900;
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.0';
+$plugin->release = '1.1';

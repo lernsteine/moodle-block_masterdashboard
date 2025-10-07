@@ -14,26 +14,37 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace block_masterdashboard\privacy;
+/**
+ * Privacy provider for block_teamdashboard.
+ *
+ * @package    block_teamdashboard
+ * @copyright  2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
-use core_privacy\local\metadata\null_provider;
+namespace block_teamdashboard\privacy;
+
+use core_privacy\local\metadata\collection;
 
 /**
- * Privacy Subsystem for block_masterdashboard.
+ * Privacy provider implementation for block_teamdashboard.
  *
- * @package   block_masterdashboard
- * @copyright 2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * This plugin does not store any personal data.
+ *
+ * @package    block_teamdashboard
+ * @copyright  2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements null_provider {
+class provider implements \core_privacy\local\metadata\provider {
 
     /**
-     * Get the language string identifier with the component's language file
-     * to explain why this plugin stores no data.
+     * Get metadata.
      *
-     * @return string
+     * @param collection $collection The initialised collection to add items to.
+     * @return collection The updated collection.
      */
-    public static function get_reason(): string {
-        return 'privacy:metadata';
+    public static function get_metadata(collection $collection): collection {
+        // This block does not store any personal data.
+        return $collection;
     }
 }
