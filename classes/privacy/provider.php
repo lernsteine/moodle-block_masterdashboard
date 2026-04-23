@@ -17,7 +17,7 @@
 /**
  * Privacy provider for block_teamdashboard.
  *
- * @package    block_teamdashboard
+ * @package    block_masterdashboard
  * @copyright  2025 Ralf Hagemeister <ralf.hagemeister@lernsteine.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -36,7 +36,6 @@ use core_privacy\local\metadata\collection;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements \core_privacy\local\metadata\provider {
-
     /**
      * Get metadata.
      *
