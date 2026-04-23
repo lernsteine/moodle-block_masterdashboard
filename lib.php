@@ -28,7 +28,6 @@ namespace block_masterdashboard;
  * Library class for block_masterdashboard.
  */
 class lib {
-
     /**
      * Returns categorized course data for the current user.
      *
