@@ -26,7 +26,6 @@
  * Class block_masterdashboard - provides the main dashboard block.
  */
 class block_masterdashboard extends block_base {
-
     /**
      * Initializes the block with a title.
      */
