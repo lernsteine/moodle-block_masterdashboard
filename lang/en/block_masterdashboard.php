@@ -23,22 +23,16 @@
  */
 
 // Standard plugin name.
-$string['pluginname'] = 'Master Dashboard';
 
-// UI texts.
-$string['dashboardintro'] = 'Welcome to your personal course dashboard.';
+$string['completedcourses'] = 'Completed Courses';
 $string['completedon'] = 'Completed on';
+$string['dashboardintro'] = 'Welcome to your personal course dashboard.';
 $string['duedate'] = 'Due date';
 $string['enddate'] = 'Course end date';
-$string['nocourseenddate'] = 'No end date set';
-
-$string['overduecourses'] = 'Overdue Courses';
 $string['inprogresscourses'] = 'Courses in Progress';
-$string['completedcourses'] = 'Completed Courses';
-
-// Capabilities.
 $string['masterdashboard:addinstance'] = 'Add a new Master Dashboard block';
 $string['masterdashboard:myaddinstance'] = 'Add a new Master Dashboard block to the Dashboard';
-
-// Privacy.
+$string['nocourseenddate'] = 'No end date set';
+$string['overduecourses'] = 'Overdue Courses';
+$string['pluginname'] = 'Master Dashboard';
 $string['privacy:metadata'] = 'The Master Dashboard block does not store any personal data.';
