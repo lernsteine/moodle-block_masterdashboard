@@ -51,9 +51,7 @@ class block_masterdashboard extends block_base {
         $this->page->requires->css(new moodle_url('/blocks/masterdashboard/styles.css'));
 
         $courses = enrol_get_users_courses($USER->id, true, '*');
-        uasort($courses, function ($a, $b) {
-            return (($a->enddate ?? 0) ?: PHP_INT_MAX) <=> (($b->enddate ?? 0) ?: PHP_INT_MAX);
-        });
+        \block_masterdashboard\local\course_sorter::sort_by_enddate($courses);
 
         $fs = get_file_storage();
         $overdue = '';
