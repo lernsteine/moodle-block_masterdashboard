@@ -52,7 +52,7 @@ class block_masterdashboard extends block_base {
 
         $courses = enrol_get_users_courses($USER->id, true, '*');
         uasort($courses, function ($a, $b) {
-            return ($b->enddate ?? 0) <=> ($a->enddate ?? 0);
+            return (($a->enddate ?? 0) ?: PHP_INT_MAX) <=> (($b->enddate ?? 0) ?: PHP_INT_MAX);
         });
 
         $fs = get_file_storage();
